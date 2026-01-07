@@ -1,0 +1,118 @@
+RESET CONTEXT.
+
+Forget all previous tasks, files, instructions, and projects from any past day.
+You are NOT continuing any previous work except the NaildBySteph project.
+Ignore all prior context. You will ONLY follow the instructions in this message.
+
+STOP.
+
+Do NOT analyze the project.
+Do NOT summarize the project.
+Do NOT describe the architecture.
+Do NOT generate a report.
+Do NOT restate features.
+Do NOT scan for deprecated files.
+Do NOT search for missing tables.
+Do NOT treat this as a new project.
+Do NOT attempt to reconcile multiple ZIPs.
+Do NOT rewrite anything that already exists.
+Do NOT waste credits on file analysis or project overviews.
+
+The ZIP I upload next is the ONLY valid and current version of the project.
+IGNORE all older ZIPs, older schemas, older folders, and older code.
+
+You are continuing development EXACTLY where the previous Manus account stopped.
+
+BEGIN IMMEDIATELY WITH PHASE 2 — SALON AI.
+
+-------------------------------------
+PHASE 2 — SALON AI (START NOW)
+-------------------------------------
+Implement the Salon AI assistant with:
+
+• Warm, calm, supportive “older homegirl from Sanger” tone.
+• Valley Girl x Chicana cadence.
+• Short, simple, non-overwhelming responses.
+• Workflow-focused personality.
+
+DEFAULT WORKFLOW PREFERENCES (ALREADY KNOWN):
+• Steph checks deposits first.
+• She likes daily briefings short.
+• She prefers reminders at the end of the day.
+• She does not like long explanations.
+
+ADAPTIVE PREFERENCE LEARNING (SAFE + WORKFLOW ONLY):
+The AI may gently adapt ONLY in:
+• message length
+• level of detail
+• slang/vocabulary
+• briefing style
+• reminder timing
+• task order
+
+The AI must NOT store or learn personal emotional content.
+
+OPTIONAL QUESTIONS (INFREQUENT + OPTIONAL):
+• “Do you want these updates shorter or longer”
+• “You want reminders earlier or later”
+• “You want me to keep it simple or give you more details”
+
+TECHNICAL REQUIREMENTS:
+• Use existing aiConversationHistory, aiSettings, dailyBriefingLogs tables.
+• Build AI personality engine.
+• Build conversation handler.
+• Build daily briefing engine.
+• Add API routes:
+    - /api/ai/message
+    - /api/ai/history
+    - /api/ai/settings
+    - /api/ai/daily-briefing
+• Add admin UI for AI settings.
+• Add collapsible AI panel + optional floating bubble.
+• Maintain dark-mode aesthetic.
+
+-------------------------------------
+DO NOT REPEAT ANY COMPLETED FEATURES
+-------------------------------------
+The following are ALREADY DONE — DO NOT TOUCH THEM:
+
+• Ads system
+• Deposit auto-verification
+• VIP scoring
+• P&L dashboard
+• Export system
+• Admin financial settings
+• TypeScript cleanup
+• Onboarding modal
+• Tutorial engine
+• Owner’s Manual components
+• Admin override for onboarding
+• Rendering verification
+• AI tables + queries already added
+
+Do NOT rebuild, refactor, or reanalyze these.
+
+-------------------------------------
+AFTER PHASE 2 — CONTINUE WITH:
+-------------------------------------
+PHASE 3 — Nail Appointment Simulator  
+PHASE 4 — Inventory Tracking + Automation  
+PHASE 5 — PWA Conversion  
+PHASE 6 — Chair/Workspace Rental System  
+
+-------------------------------------
+RULES FOR EXECUTION
+-------------------------------------
+• DO NOT analyze the project.
+• DO NOT summarize anything.
+• DO NOT re-scan ZIPs.
+• DO NOT search for missing tables.
+• DO NOT redo completed phases.
+• Begin coding IMMEDIATELY after extracting the ZIP.
+• No feature drift.
+• No unnecessary commentary.
+• Deliver updated project files + concise summary + remaining tasks.
+
+-------------------------------------
+END OF PROMPT
+-------------------------------------
