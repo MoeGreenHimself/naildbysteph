@@ -1,0 +1,389 @@
+/**
+ * NaildBySteph Nail Design Studio - Custom Styles
+ * Supplements Tailwind CSS with animations, 3D transforms, and custom components
+ */
+
+/* ===== CSS Custom Properties ===== */
+:root {
+  --studio-primary: #e91e8c;
+  --studio-secondary: #9b59b6;
+  --studio-dark: #1a1a2e;
+  --studio-dark-alt: #16213e;
+  --studio-accent: #f472b6;
+  --studio-light: #fce4ec;
+  --studio-gold: #f59e0b;
+  --studio-glow: rgba(233, 30, 140, 0.4);
+  --studio-shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* ===== 3D Hand Container ===== */
+.nail-studio-3d-container {
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+  transform-style: preserve-3d;
+  user-select: none;
+  touch-action: none;
+}
+
+.nail-studio-3d-hand {
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+}
+
+.nail-studio-3d-hand.dragging {
+  transition: none;
+  cursor: grabbing;
+}
+
+.nail-studio-3d-hand:not(.dragging) {
+  cursor: grab;
+}
+
+/* ===== Hand Model ===== */
+.hand-model {
+  position: relative;
+  width: 280px;
+  height: 380px;
+  transform-style: preserve-3d;
+}
+
+.hand-palm {
+  position: absolute;
+  width: 160px;
+  height: 180px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #f5d0c5, #e8b4a8);
+  border-radius: 45% 45% 40% 40%;
+  box-shadow: inset 0 -10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.hand-finger {
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.hand-finger:hover {
+  filter: brightness(1.05);
+}
+
+.hand-finger.selected {
+  filter: brightness(1.1) drop-shadow(0 0 8px var(--studio-glow));
+}
+
+.finger-segment {
+  position: relative;
+  background: linear-gradient(180deg, #f5d0c5 0%, #e8b4a8 100%);
+  border-radius: 45%;
+  box-shadow: 
+    inset 2px 0 4px rgba(255, 255, 255, 0.2),
+    inset -2px 0 4px rgba(0, 0, 0, 0.05);
+}
+
+.finger-nail {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) rotateX(8deg);
+  transform-style: preserve-3d;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.15),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.1),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+.finger-nail::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 15%;
+  width: 30%;
+  height: 40%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.finger-nail.chrome::after {
+  width: 60%;
+  height: 60%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0.1) 40%,
+    rgba(255, 255, 255, 0.5) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.finger-nail.matte::after {
+  display: none;
+}
+
+.finger-nail.glitter {
+  background-image: 
+    radial-gradient(1px 1px at 20% 30%, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 40% 60%, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1px 1px at 60% 20%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1px 1px at 80% 70%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 30% 80%, rgba(255, 255, 255, 0.6), transparent);
+}
+
+/* ===== Nail Shape Clips ===== */
+.nail-shape-round { border-radius: 40% 40% 50% 50%; }
+.nail-shape-oval { border-radius: 45% 45% 50% 50%; }
+.nail-shape-square { border-radius: 5% 5% 3% 3%; }
+.nail-shape-squoval { border-radius: 20% 20% 5% 5%; }
+.nail-shape-almond { border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%; }
+.nail-shape-stiletto { border-radius: 50% 50% 50% 50% / 20% 20% 80% 80%; clip-path: polygon(15% 0%, 85% 0%, 100% 40%, 50% 100%, 0% 40%); }
+.nail-shape-coffin { clip-path: polygon(10% 0%, 90% 0%, 100% 60%, 80% 100%, 20% 100%, 0% 60%); }
+.nail-shape-lipstick { clip-path: polygon(0% 15%, 100% 0%, 100% 60%, 85% 100%, 15% 100%, 0% 60%); }
+
+/* ===== Canvas & Drawing ===== */
+.nail-canvas-container {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.nail-canvas {
+  display: block;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.nail-canvas.tool-fill {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23e91e8c' stroke-width='2'%3E%3Cpath d='M2 22l10-10M16 8l-8 8M20 4l-4 4M12 2l4 4M19 13c1.7 1.7 1.7 4.3 0 6s-4.3 1.7-6 0'/%3E%3C/svg%3E") 2 22, crosshair;
+}
+
+.nail-canvas.tool-eraser {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='8' fill='none' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E") 10 10, crosshair;
+}
+
+.nail-canvas.tool-pen {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6' viewBox='0 0 6 6'%3E%3Ccircle cx='3' cy='3' r='2.5' fill='%23e91e8c'/%3E%3C/svg%3E") 3 3, crosshair;
+}
+
+/* ===== Tool Panel ===== */
+.tool-panel {
+  background: linear-gradient(180deg, rgba(26, 26, 46, 0.95), rgba(22, 33, 62, 0.95));
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(233, 30, 140, 0.2);
+  border-radius: 16px;
+}
+
+.tool-button {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  color: rgba(255, 255, 255, 0.7);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.tool-button:hover {
+  background: rgba(233, 30, 140, 0.15);
+  color: white;
+}
+
+.tool-button.active {
+  background: linear-gradient(135deg, var(--studio-primary), var(--studio-secondary));
+  color: white;
+  box-shadow: 0 4px 12px var(--studio-glow);
+}
+
+/* ===== Color Picker ===== */
+.color-swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.color-swatch:hover {
+  transform: scale(1.15);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.color-swatch.selected {
+  border-color: white;
+  box-shadow: 0 0 12px var(--studio-glow);
+  transform: scale(1.2);
+}
+
+.color-swatch.selected::after {
+  content: '✓';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== View Controls ===== */
+.view-button {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-button:hover {
+  background: rgba(233, 30, 140, 0.2);
+  border-color: var(--studio-primary);
+  color: white;
+}
+
+/* ===== Gallery ===== */
+.gallery-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.8));
+  border: 1px solid rgba(233, 30, 140, 0.15);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--studio-primary);
+  box-shadow: 0 12px 40px rgba(233, 30, 140, 0.2);
+}
+
+.gallery-card-image {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: linear-gradient(
+    135deg,
+    rgba(233, 30, 140, 0.1),
+    rgba(155, 89, 182, 0.1)
+  );
+}
+
+.gallery-card-placeholder {
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    rgba(233, 30, 140, 0.08),
+    rgba(155, 89, 182, 0.12)
+  );
+}
+
+/* ===== Animations ===== */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px var(--studio-glow); }
+  50% { box-shadow: 0 0 20px var(--studio-glow), 0 0 40px rgba(233, 30, 140, 0.2); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes nail-shine {
+  0% { opacity: 0.3; transform: translateX(-100%) rotate(45deg); }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.3; transform: translateX(100%) rotate(45deg); }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .hand-model {
+    width: 220px;
+    height: 300px;
+  }
+
+  .tool-panel {
+    border-radius: 12px;
+  }
+
+  .tool-button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .color-swatch {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hand-model {
+    width: 180px;
+    height: 250px;
+  }
+
+  .nail-canvas-container {
+    border-radius: 8px;
+  }
+}
+
+/* ===== Scrollbar Styling ===== */
+.studio-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.studio-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.studio-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(233, 30, 140, 0.3);
+  border-radius: 3px;
+}
+
+.studio-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(233, 30, 140, 0.5);
+}
